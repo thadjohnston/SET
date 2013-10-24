@@ -16,6 +16,7 @@ class Deck(object):
         self.patterns = ['solid', 'striped', 'outlined']
         self.shapes = ['oval', 'diamond', 'squiggle']
         self.createDeck()
+        '''test'''
 
     def createDeck(self):
         for number in self.numbers:
