@@ -60,7 +60,12 @@ class Player(object):
         #self.removed.append(self.board[i])
         del self.board[i]
     
+<<<<<<< HEAD
     def isSet(self, c1, c2, c3):\
+=======
+    '''this shit works below'''    
+    def isSet(self, c1, c2, c3):
+>>>>>>> c94d9aa92585d45a6723c4d889233d4ee04bbd66
         return self.numberSet(c1, c2, c3) and self.colorSet(c1, c2, c3) and self.patternSet(c1, c2, c3) and self.shapeSet(c1, c2, c3)
                 
     def numberSet(self, c1, c2, c3):
