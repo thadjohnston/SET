@@ -50,10 +50,11 @@ def predictThird(card1, card2):
     return Card(number, color, pattern, shape)
         
 if __name__ == '__main__':
-    card1 = Card(2, 'green', 'solid', 'oval')
-    card2 = Card(2, 'red', 'striped', 'oval')
-    card3 = predictThird(card1, card2)
-    print card3
-    s = Set(card1, card2, card3)
-    print s
+#     card1 = Card(2, 'green', 'solid', 'oval')
+#     card2 = Card(2, 'red', 'striped', 'oval')
+#     card3 = predictThird(card1, card2)
+#     print(card3)
+#     s = Set(card1, card2, card3)
+#     print s
+    pass
     
