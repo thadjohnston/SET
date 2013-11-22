@@ -60,12 +60,7 @@ class Player(object):
         #self.removed.append(self.board[i])
         del self.board[i]
     
-<<<<<<< HEAD
-    def isSet(self, c1, c2, c3):\
-=======
-    '''this shit works below'''    
     def isSet(self, c1, c2, c3):
->>>>>>> c94d9aa92585d45a6723c4d889233d4ee04bbd66
         return self.numberSet(c1, c2, c3) and self.colorSet(c1, c2, c3) and self.patternSet(c1, c2, c3) and self.shapeSet(c1, c2, c3)
                 
     def numberSet(self, c1, c2, c3):
@@ -108,26 +103,31 @@ class LeastConflict(Player):
         Player.__init__(self, deck)
         
     def findSet(self):
+        foundSet = False
         currentSets = []
         for i in range(len(self.board)-2):
             for j in range(i+1, len(self.board)-1):
                 for k in range(j+1, len(self.board)):
                     if self.isSet(self.board[i], self.board[j], self.board[k]):
                         currentSets.append(Set.Set(self.board[i], self.board[j], self.board[k]))
-                        print(currentSets)
-                        return True
-        return False
+                        foundSet = True
+        if foundSet:
+            chosenSet = self.getBestSet(currentSets)
     
+        return foundSet
+    
+    def getBestSet(self, sets):
+        
+        for set in sets:
+            cards = set.returnSet()
+            for card in cards:
+                for secondCard in (self.board + self.deck):
+                    thirdCard = Set.predictThird(card, secondCard)
+                    print(thirdCard)
+                
     
         
     
 if __name__ == '__main__':
     pass
-#     deck = Deck.Deck()
-#     p = Player(deck.shuffle())
-#     c1 = Deck.Card(1, 'green', 'striped', 'squiggle')
-#     c2 = Deck.Card(2, 'purple', 'outlined', 'oval')
-#     c3 = Deck.Card(3, 'red', 'solid', 'diamond')
-#     print(p.isSet(c1, c2, c3))
-    
     
