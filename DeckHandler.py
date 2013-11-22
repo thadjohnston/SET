@@ -6,7 +6,7 @@ Created on Oct 22, 2013
 import random
 import copy
 
-class Deck(object):
+class DeckHandler(object):
 
     def __init__(self):
         self.deck = []
