@@ -5,6 +5,7 @@ Created on Oct 22, 2013
 '''
 
 import DeckHandler
+import Set
 
 class Player(object):
 
@@ -16,8 +17,10 @@ class Player(object):
         self.numSets = 0
         
     def playGame(self):
-        while self.canStillPlay():
+        
+        while self.canStillPlay() and self.setPresent():
             if self.findSet():
+                return
                 self.numSets = self.numSets + 1
                 print(self.numSets)
             else:
@@ -26,13 +29,27 @@ class Player(object):
         
     def canStillPlay(self):
         if len(self.deck) >= 3:
-            while len(self.board) < 12:
+            while len(self.board) < 12 and len(self.board) >= 0:
                 self.board.append(self.deck.pop())
             return True
         return False
     
     def findSet(self):
-        pass
+        for i in range(len(self.board)-2):
+            for j in range(i+1, len(self.board)-1):
+                for k in range(j+1, len(self.board)):
+                    if self.isSet(self.board[i], self.board[j], self.board[k]):
+                        self.takeSet(i, j, k)
+                        return True
+        return False
+    
+    def setPresent(self):
+        for i in range(len(self.board)-2):
+            for j in range(i+1, len(self.board)-1):
+                for k in range(j+1, len(self.board)):
+                    if self.isSet(self.board[i], self.board[j], self.board[k]):
+                        return True
+        return False
     
     def takeSet(self, i, j, k):
         #take from the end so as not to fuck it up
@@ -43,8 +60,12 @@ class Player(object):
         #self.removed.append(self.board[i])
         del self.board[i]
     
+<<<<<<< HEAD
+    def isSet(self, c1, c2, c3):\
+=======
     '''this shit works below'''    
     def isSet(self, c1, c2, c3):
+>>>>>>> c94d9aa92585d45a6723c4d889233d4ee04bbd66
         return self.numberSet(c1, c2, c3) and self.colorSet(c1, c2, c3) and self.patternSet(c1, c2, c3) and self.shapeSet(c1, c2, c3)
                 
     def numberSet(self, c1, c2, c3):
@@ -80,21 +101,28 @@ class GreedyPlayer(Player):
     def __init__(self, deck):
         Player.__init__(self, deck)
         
+        
+class LeastConflict(Player):
+    
+    def __init__(self, deck):
+        Player.__init__(self, deck)
+        
     def findSet(self):
-        print('something')
-        for i in range(10):
-            for j in range(i+1, 11):
-                for k in range(j+1, 12):
+        currentSets = []
+        for i in range(len(self.board)-2):
+            for j in range(i+1, len(self.board)-1):
+                for k in range(j+1, len(self.board)):
                     if self.isSet(self.board[i], self.board[j], self.board[k]):
-                        print (self.board[i], self.board[j], self.board[k])
-                        self.takeSet(i, j, k)
+                        currentSets.append(Set.Set(self.board[i], self.board[j], self.board[k]))
+                        print(currentSets)
                         return True
         return False
     
-if __name__ == '__main__':
-    gp = GreedyPlayer()
-    print(gp.findSet())
     
+        
+    
+if __name__ == '__main__':
+    pass
 #     deck = Deck.Deck()
 #     p = Player(deck.shuffle())
 #     c1 = Deck.Card(1, 'green', 'striped', 'squiggle')

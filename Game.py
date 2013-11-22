@@ -1,5 +1,5 @@
 
-import Deck
+import DeckHandler
 import Player
 import random
 
@@ -8,13 +8,13 @@ class Game(object):
     def __init__(self):
         self.players = ['greedy player']
         self.board = []
-        D = Deck.Deck()
+        D = DeckHandler.DeckHandler()
         self.deck = D.getDeck()
         self.shuffle()
         
     def start(self):
         for player in self.players:
-            P = Player.Player(self.deck)
+            P = Player.LeastConflict(self.deck)
             P.playGame()
 
 

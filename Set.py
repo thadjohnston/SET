@@ -6,10 +6,6 @@ Created on Nov 21, 2013
 from DeckHandler import Card 
 
 class Set(object):
-    '''
-    classdocs
-    '''
-
 
     def __init__(self, card1, card2, card3):
         self.set = [card1, card2, card3]
