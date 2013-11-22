@@ -4,7 +4,7 @@ Created on Oct 22, 2013
 @author: Thad
 '''
 
-import Deck
+import DeckHandler
 
 class Player(object):
 
@@ -32,14 +32,7 @@ class Player(object):
         return False
     
     def findSet(self):
-        for i in range(10):
-            for j in range(i+1, 11):
-                for k in range(j+1, 12):
-                    if self.isSet(self.board[i], self.board[j], self.board[k]):
-                        print (self.board[i], self.board[j], self.board[k])
-                        self.takeSet(i, j, k)
-                        return True
-        return False
+        pass
     
     def takeSet(self, i, j, k):
         #take from the end so as not to fuck it up
@@ -80,10 +73,28 @@ class Player(object):
             return True
         if c1.getShape() != c2.getShape() and c2.getShape() != c3.getShape() and c3.getShape() != c1.getShape():
             return True
-        return False   
+        return False  
+    
+class GreedyPlayer(Player):
+    
+    def __init__(self, deck):
+        Player.__init__(self, deck)
+        
+    def findSet(self):
+        print('something')
+        for i in range(10):
+            for j in range(i+1, 11):
+                for k in range(j+1, 12):
+                    if self.isSet(self.board[i], self.board[j], self.board[k]):
+                        print (self.board[i], self.board[j], self.board[k])
+                        self.takeSet(i, j, k)
+                        return True
+        return False
     
 if __name__ == '__main__':
-    pass
+    gp = GreedyPlayer()
+    print(gp.findSet())
+    
 #     deck = Deck.Deck()
 #     p = Player(deck.shuffle())
 #     c1 = Deck.Card(1, 'green', 'striped', 'squiggle')
