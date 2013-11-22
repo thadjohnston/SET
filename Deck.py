@@ -35,8 +35,8 @@ class Deck(object):
     def getDeck(self):
         return self.deck
     
-    def shuffle(self):
-        return random.shuffle(self.getCopy())
+#     def shuffle(self):
+#         return random.shuffle(self.getCopy())
         
     def getNewCards(self):
         newCards = self.shuffled[0:2]

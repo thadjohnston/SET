@@ -9,20 +9,22 @@ import Deck
 class Player(object):
 
     def __init__(self, deck):
+        #print(deck)
         self.deck = deck
         self.board = []
         self.removed = []
         self.numSets = 0
         
     def playGame(self):
-        while self.deal():
-            if self.findSet(self.board):
-                pass 
+        while self.canStillPlay():
+            if self.findSet():
+                self.numSets = self.numSets + 1
+                print(self.numSets)
             else:
-                pass
+                return
             
         
-    def deal(self):
+    def canStillPlay(self):
         if len(self.deck) >= 3:
             while len(self.board) < 12:
                 self.board.append(self.deck.pop())
@@ -31,20 +33,21 @@ class Player(object):
     
     def findSet(self):
         for i in range(10):
-            for j in range(1, 11):
-                for k in range(2, 12):
+            for j in range(i+1, 11):
+                for k in range(j+1, 12):
                     if self.isSet(self.board[i], self.board[j], self.board[k]):
+                        print (self.board[i], self.board[j], self.board[k])
                         self.takeSet(i, j, k)
                         return True
         return False
     
     def takeSet(self, i, j, k):
         #take from the end so as not to fuck it up
-        self.removed.append(self.board[k])
+        #self.removed.append(self.board[k])
         del self.board[k]
-        self.removed.append(self.board[j])
+        #self.removed.append(self.board[j])
         del self.board[j]
-        self.removed.append(self.board[i])
+        #self.removed.append(self.board[i])
         del self.board[i]
     
     '''this shit works below'''    
@@ -80,11 +83,12 @@ class Player(object):
         return False   
     
 if __name__ == '__main__':
-    deck = Deck.Deck()
-    p = Player(deck.shuffle())
-    c1 = Deck.Card(1, 'green', 'striped', 'squiggle')
-    c2 = Deck.Card(2, 'purple', 'outlined', 'oval')
-    c3 = Deck.Card(3, 'red', 'solid', 'diamond')
-    print(p.isSet(c1, c2, c3))
+    pass
+#     deck = Deck.Deck()
+#     p = Player(deck.shuffle())
+#     c1 = Deck.Card(1, 'green', 'striped', 'squiggle')
+#     c2 = Deck.Card(2, 'purple', 'outlined', 'oval')
+#     c3 = Deck.Card(3, 'red', 'solid', 'diamond')
+#     print(p.isSet(c1, c2, c3))
     
     
