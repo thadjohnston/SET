@@ -14,6 +14,9 @@ class Set(object):
     def __init__(self, card1, card2, card3):
         self.set = [card1, card2, card3]
         
+    def __str__(self):
+        return '[' + str(self.set[0]) + ', ' + str(self.set[1]) + ', ' + str(self.set[2]) + ']'
+    
     def returnSet(self):
         return self.set
     
@@ -50,4 +53,8 @@ def predictThird(card1, card2):
 if __name__ == '__main__':
     card1 = Card(2, 'green', 'solid', 'oval')
     card2 = Card(2, 'red', 'striped', 'oval')
-    print predictThird(card1, card2)
+    card3 = predictThird(card1, card2)
+    print card3
+    s = Set(card1, card2, card3)
+    print s
+    
