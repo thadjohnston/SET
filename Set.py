@@ -13,6 +13,9 @@ class Set(object):
     def __str__(self):
         return '[' + str(self.set[0]) + ', ' + str(self.set[1]) + ', ' + str(self.set[2]) + ']'
     
+    def __repr__(self):
+        return '[' + str(self.set[0]) + ', ' + str(self.set[1]) + ', ' + str(self.set[2]) + ']'
+    
     def returnSet(self):
         return self.set
     
