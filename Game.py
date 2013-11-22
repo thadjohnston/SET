@@ -17,6 +17,8 @@ class Game(object):
             P = Player.LeastConflict(self.deck)
             P.playGame()
 
+#def goNuts():
+    #This is where I'll test shit eventually 
 
 if __name__ == '__main__':
     g = Game()

@@ -47,6 +47,7 @@ class DeckHandler(object):
     
     def shuffle(self):
         random.shuffle(self.deck)
+        return self.deck
         
     def dropCards(self, numToDrop):
         self.shuffle()
@@ -59,6 +60,17 @@ class DeckHandler(object):
         newCards = self.shuffled[0:2]
         del self.shuffled[0:2]
         return newCards
+    
+def printFormattedDeck(deck):
+    s = ""
+    numCards = len(deck)
+    c = 0
+    for i in range(numCards/3):
+        for j in range(3):
+            s += str(deck[c]) + "  "
+            c += 1
+        s += "\n"
+    return s
     
 class Card(object):
     def __init__(self, number, color, pattern, shape):
@@ -85,11 +97,11 @@ class Card(object):
     def getShape(self):
         return self.shape
     
-#if __name__ == '__main__':
-    #d = DeckHandler()
-    ##d.createDeck()
+if __name__ == '__main__':
+    d = DeckHandler()
+    #d.createDeck()
     #print "-----------------------------------------------------------"
-    #d.shuffle()
+    #print d.shuffle()
     #print d
     #print len(d.deck)
     #print "-----------------------------------------------------------"
