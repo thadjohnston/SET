@@ -16,8 +16,18 @@ class DeckHandler(object):
         self.patterns = ['solid', 'striped', 'outlined']
         self.shapes = ['oval', 'diamond', 'squiggle']
         self.createDeck()
-        '''test'''
-
+        
+    def __str__(self):
+        s = ""
+        numCards = len(self.deck)
+        c = 0
+        for i in range(numCards/3):
+            for j in range(3):
+                s += str(self.deck[c]) + "  "
+                c += 1
+            s += "\n"
+        return s
+    
     def createDeck(self):
         for number in self.numbers:
             for color in self.colors:
@@ -35,8 +45,15 @@ class DeckHandler(object):
     def getDeck(self):
         return self.deck
     
-#     def shuffle(self):
-#         return random.shuffle(self.getCopy())
+    def shuffle(self):
+        random.shuffle(self.deck)
+        
+    def dropCards(self, numToDrop):
+        self.shuffle()
+        for i in range(numToDrop):
+            c = self.deck[0]
+            self.deck.remove(c)
+            print str(i) + "  " + str(c)
         
     def getNewCards(self):
         newCards = self.shuffled[0:2]
@@ -70,13 +87,16 @@ class Card(object):
     
     
 
-# if __name__ == '__main__':
-#     d = Deck()
-#     d.createDeck()
-#     print()
-#     deck1 = d.getCopy()
-#     deck2 = d.getCopy()
-#     random.shuffle(deck1)
-#     random.shuffle(deck2)
-#     print(deck1)
-#     print(deck2)
+if __name__ == '__main__':
+    d = DeckHandler()
+    #d.createDeck()
+    print "-----------------------------------------------------------"
+    d.shuffle()
+    print d
+    print len(d.deck)
+    print "-----------------------------------------------------------"
+    d.dropCards(41)
+    print "-----------------------------------------------------------"
+    print d
+    print "-----------------------------------------------------------"
+    print len(d.deck)

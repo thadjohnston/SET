@@ -10,7 +10,7 @@ class Game(object):
         self.board = []
         D = Deck.Deck()
         self.deck = D.getDeck()
-        random.shuffle(self.deck)
+        self.shuffle()
         
     def start(self):
         for player in self.players:
