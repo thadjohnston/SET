@@ -102,6 +102,12 @@ class Card(object):
             return self.getNumber() == other.getNumber() and self.getColor() == other.getColor() and self.getPattern() == other.getPattern() and self.getShape() == other.getShape()
         else:
             return False
+        
+    def __ne__(self, other):
+        if isinstance(other, self.__class__):
+            return self.getNumber() != other.getNumber() or self.getColor() != other.getColor() or self.getPattern() != other.getPattern() or self.getShape() != other.getShape()
+        else:
+            return False
     
 if __name__ == '__main__':
     d = DeckHandler()
