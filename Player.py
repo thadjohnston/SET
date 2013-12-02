@@ -6,25 +6,31 @@ Created on Oct 22, 2013
 
 import DeckHandler
 import Set
+import random
 
 class Player(object):
 
-    def __init__(self, deck):
+    def __init__(self, deck, allow = False):
         #print(deck)
         self.deck = deck
         self.board = []
         self.removed = []
         self.numSets = 0
+        self.allowReshuffle = allow
         
     def playGame(self):
-        
-        while self.canStillPlay() and self.setPresent():
-            if self.findSet():
-                return
+        sets = []
+        while self.canStillPlay():# and self.setPresent():
+            s = self.findSet()
+            if s:
+                sets.append(s)
                 self.numSets = self.numSets + 1
-                print(self.numSets)
             else:
-                return
+                if self.allowReshuffle:
+                    self.resetDeck()
+                else:
+                    return sets
+        return sets
             
         
     def canStillPlay(self):
@@ -34,13 +40,19 @@ class Player(object):
             return True
         return False
     
+    def resetDeck(self):
+        while len(self.board) > 0:
+            self.deck.append(self.board.pop())
+        random.shuffle(self.deck)
+        while len(self.board) < 12 and len(self.board) >= 0:
+            self.board.append(self.deck.pop())
+    
     def findSet(self):
         for i in range(len(self.board)-2):
             for j in range(i+1, len(self.board)-1):
                 for k in range(j+1, len(self.board)):
                     if self.isSet(self.board[i], self.board[j], self.board[k]):
-                        self.takeSet(i, j, k)
-                        return True
+                        return self.takeSet(i, j, k)
         return False
     
     def setPresent(self):
@@ -54,11 +66,15 @@ class Player(object):
     def takeSet(self, i, j, k):
         #take from the end so as not to fuck it up
         #self.removed.append(self.board[k])
+        c1 = self.board[k]
         del self.board[k]
         #self.removed.append(self.board[j])
+        c2 = self.board[j]
         del self.board[j]
         #self.removed.append(self.board[i])
+        c3 = self.board[i]
         del self.board[i]
+        return Set.Set(c1, c2, c3)
     
     def isSet(self, c1, c2, c3):
         return self.numberSet(c1, c2, c3) and self.colorSet(c1, c2, c3) and self.patternSet(c1, c2, c3) and self.shapeSet(c1, c2, c3)
@@ -142,8 +158,11 @@ class LeastConflict(Player):
                         
                 
     
-        
-    
 if __name__ == '__main__':
-    pass
-    
+     deck = DeckHandler.DeckHandler()
+     p = Player(deck.shuffle(), True)
+     #print DeckHandler.printFormattedDeck(p.deck)
+     setsFound = p.playGame()
+     print len(setsFound)
+     for s in setsFound:
+         print s
