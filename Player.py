@@ -117,13 +117,29 @@ class LeastConflict(Player):
         return foundSet
     
     def getBestSet(self, sets):
+        minSet = -1
         
-        for set in sets:
-            cards = set.returnSet()
+        minExistingSets = -1
+        numSetsForCard = 0
+        
+        setNum = 0
+        
+        for eachSet in sets:
+            cards = eachSet.returnSet()
             for card in cards:
                 for secondCard in (self.board + self.deck):
-                    thirdCard = Set.predictThird(card, secondCard)
-                    print(thirdCard)
+                    if secondCard != card:
+                        thirdCard = Set.predictThird(card, secondCard)
+                        if thirdCard in (self.board + self.deck):
+                            print card, secondCard, thirdCard
+                            numSetsForCard += 1
+                if minExistingSets == -1 or numSetsForCard < minExistingSets:
+                    minExistingSets = numSetsForCard
+                    minSet = setNum
+            setNum += 1
+        return sets[minSet]
+
+                        
                 
     
         
