@@ -54,7 +54,7 @@ class DeckHandler(object):
         for i in range(numToDrop):
             c = self.deck[0]
             self.deck.remove(c)
-            print str(i) + "  " + str(c)
+            print( str(i) + "  " + str(c))
         
     def getNewCards(self):
         newCards = self.shuffled[0:2]
@@ -96,6 +96,12 @@ class Card(object):
     
     def getShape(self):
         return self.shape
+    
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.getNumber() == other.getNumber() and self.getColor() == other.getColor() and self.getPattern() == other.getPattern() and self.getShape() == other.getShape()
+        else:
+            return False
     
 if __name__ == '__main__':
     d = DeckHandler()
