@@ -54,7 +54,7 @@ class DeckHandler(object):
         for i in range(numToDrop):
             c = self.deck[0]
             self.deck.remove(c)
-            print( str(i) + "  " + str(c))
+            #print( str(i) + "  " + str(c))
         
     def getNewCards(self):
         newCards = self.shuffled[0:2]
