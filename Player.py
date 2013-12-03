@@ -115,9 +115,8 @@ class Player(object):
         return False  
     
 class GreedyPlayer(Player):
-    
-    def __init__(self, deck):
-        Player.__init__(self, deck)
+    def __init__(self, deck, allow):
+        Player.__init__(self, deck, allow)
         
 def getLeastCard(board, deck, sets):
     minSet = -1
