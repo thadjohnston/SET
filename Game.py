@@ -42,6 +42,12 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
     completeMostSet = 0
     averageMostSet = 0
     
+    completeBComb = 0
+    averageBComb = 0
+    
+    completeWComb = 0
+    averageWComb = 0
+    
     completePossible = 27 - (remove/3)
     
     for i in range (howmany):
@@ -84,6 +90,20 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
             completeMostSet += 1
         averageMostSet += len(sets)
         
+        #Play Strategy: bestCombinatoric
+        S5 = Player.StrategicPlayer(copy.deepcopy(deck.getDeck()), Player.bestCombinatoric, allowReshuffle)
+        sets = S5.playGame()
+        if len(sets) == completePossible:
+            completeBComb += 1
+        averageBComb += len(sets)
+        
+        #Play Strategy: worstCombinatoric
+        S6 = Player.StrategicPlayer(copy.deepcopy(deck.getDeck()), Player.worstCombinatoric, allowReshuffle)
+        sets = S6.playGame()
+        if len(sets) == completePossible:
+            completeWComb += 1
+        averageWComb += len(sets)
+        
     #Statistics
     num = howmany/100.0
     print "Statistics: Remove(" + str(remove) + ") Reshuffle(" + str(allowReshuffle) + ")"
@@ -97,6 +117,10 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
     print "Average Least Set: \t" + str(averageLeastSet/float(howmany))
     print "Completed Most Set: \t" + str(completeMostSet/num) + "%"
     print "Average Most Set: \t" + str(averageMostSet/float(howmany))
+    print "Completed Best Comb: \t" + str(completeBComb/num) + "%"
+    print "Average Best Comb: \t" + str(averageBComb/float(howmany))
+    print "Completed Worst Comb: \t" + str(completeWComb/num) + "%"
+    print "Average Worst Comb: \t" + str(averageWComb/float(howmany))
     print "------------------------------------------"
     
  
