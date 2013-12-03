@@ -7,6 +7,7 @@ Created on Oct 22, 2013
 import DeckHandler
 import Set
 import random
+import sys
 
 class Player(object):
 
@@ -119,7 +120,7 @@ class GreedyPlayer(Player):
         Player.__init__(self, deck)
         
         
-class LeastConflict(Player):
+class StrategicPlayer(Player):
     
     def __init__(self, deck, allow=False):
         Player.__init__(self, deck, allow)
@@ -134,7 +135,7 @@ class LeastConflict(Player):
                         currentSets.append(Set.Set(self.board[i], self.board[j], self.board[k]))
                         foundSet = True
         if foundSet:
-            chosenSet = self.getLeastSet(currentSets)
+            chosenSet = self.getLeastCard(currentSets)
 #             print(chosenSet)
             cards = chosenSet.returnSet()
             self.removed.append(cards[0])
@@ -145,8 +146,8 @@ class LeastConflict(Player):
             self.board.remove(cards[1])
             self.board.remove(cards[2])
             
-    
-        return foundSet
+            return Set.Set(cards[0], cards[1], cards[2])
+        return False
     
     def getLeastCard(self, sets):
         minSet = -1
@@ -169,7 +170,8 @@ class LeastConflict(Player):
             numSetsForCard = 0
             setNum += 1
         return sets[minSet]
-
+    
+    
     #DO THIS
     def getMostCard(self, sets):
         minSet = -1
@@ -242,14 +244,18 @@ class LeastConflict(Player):
                 
     
 if __name__ == '__main__':
-        deck = DeckHandler.DeckHandler()
-        p = Player(deck.shuffle(), False)
-        lc = LeastConflict(deck.shuffle(), False)
-        setsFound = lc.playGame()
+        
+        #p = Player(deck.shuffle(), False)
+        completeGames = 0
+        for i in range(10000):
+            deck = DeckHandler.DeckHandler()
+            lc = StrategicPlayer(deck.shuffle(), False)
+            setsFound = lc.playGame()
+            if len(setsFound) == 27:
+                completeGames += 1
         #print DeckHandler.printFormattedDeck(p.deck)
 #         setsFound = p.playGame()
-        print(len(setsFound))
+        print('Number of complete games: ' + str(completeGames))
 #         print(lc.board)
-        print(lc.findSet())
 #         for s in setsFound:
 #             print(s)
