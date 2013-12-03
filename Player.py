@@ -247,9 +247,10 @@ if __name__ == '__main__':
         
         #p = Player(deck.shuffle(), False)
         completeGames = 0
-        for i in range(10000):
+        for i in range(100):
             deck = DeckHandler.DeckHandler()
-            lc = StrategicPlayer(deck.shuffle(), False)
+            deck = deck.shuffle()
+            lc = StrategicPlayer(deck, False)
             setsFound = lc.playGame()
             if len(setsFound) == 27:
                 completeGames += 1
