@@ -119,11 +119,103 @@ class GreedyPlayer(Player):
     def __init__(self, deck):
         Player.__init__(self, deck)
         
+def getLeastCard(board, deck, sets):
+    minSet = -1
+    minExistingSets = -1
+    numSetsForCard = 0
+    setNum = 0
+    
+    for eachSet in sets:
+        cards = eachSet.returnSet()
+        for card in cards:
+            for secondCard in (board + deck):
+                if secondCard != card:
+                    thirdCard = Set.predictThird(card, secondCard)
+                    if thirdCard in (board + deck):
+                        numSetsForCard += 1
+            if minExistingSets == -1 or numSetsForCard < minExistingSets:
+#                     print (numSetsForCard)
+                minExistingSets = numSetsForCard
+                minSet = setNum
+        numSetsForCard = 0
+        setNum += 1
+    return sets[minSet]
+
+
+#DO THIS
+def getMostCard(board, deck, sets):
+    minSet = -1
+    maxExistingSets = -1
+    numSetsForCard = 0
+    setNum = 0
+    
+    for eachSet in sets:
+        cards = eachSet.returnSet()
+        for card in cards:
+            for secondCard in (board + deck):
+                if secondCard != card:
+                    thirdCard = Set.predictThird(card, secondCard)
+                    if thirdCard in (board + deck):
+#                             print( card, secondCard, thirdCard)
+                        numSetsForCard += 1
+            if maxExistingSets == -1 or numSetsForCard > maxExistingSets:
+                
+                maxExistingSets = numSetsForCard
+                minSet = setNum
+        numSetsForCard = 0
+        setNum += 1
+    return sets[minSet]
+
+#DO THIS
+def getMostSet(board, deck, sets):
+    maxSet = -1
+    maxExistingSets = -1
+    numSetsForSet = 0
+    setNum = 0
+    
+    for eachSet in sets:
+        cards = eachSet.returnSet()
+        for card in cards:
+            for secondCard in (board + deck):
+                if secondCard != card:
+                    thirdCard = Set.predictThird(card, secondCard)
+                    if thirdCard in (board + deck):
+                        numSetsForSet += 1
+        if maxExistingSets == -1 or numSetsForSet > maxExistingSets:
+                
+            maxExistingSets = numSetsForSet
+            maxSet = setNum
+        numSetsForSet = 0
+        setNum += 1
+    return sets[maxSet]
+
+
+def getLeastSet(board, deck, sets):
+    minSet = -1
+    minExistingSets = -1
+    numSetsForSet = 0
+    setNum = 0
+    
+    for eachSet in sets:
+        cards = eachSet.returnSet()
+        for card in cards:
+            for secondCard in (board + deck):
+                if secondCard != card:
+                    thirdCard = Set.predictThird(card, secondCard)
+                    if thirdCard in (board + deck):
+                        numSetsForSet += 1
+        if minExistingSets == -1 or numSetsForSet < minExistingSets:
+            minExistingSets = numSetsForSet
+            minSet = setNum
+        numSetsForSet = 0
+        setNum += 1
+    return sets[minSet]
         
 class StrategicPlayer(Player):
     
-    def __init__(self, deck, allow=False):
+    def __init__(self, deck, func=getLeastCard, allow=False):
         Player.__init__(self, deck, allow)
+        self.heuristic = func
         
     def findSet(self):
         foundSet = False
@@ -135,7 +227,7 @@ class StrategicPlayer(Player):
                         currentSets.append(Set.Set(self.board[i], self.board[j], self.board[k]))
                         foundSet = True
         if foundSet:
-            chosenSet = self.getLeastCard(currentSets)
+            chosenSet = self.heuristic(self.board, self.deck, currentSets)
 #             print(chosenSet)
             cards = chosenSet.returnSet()
             self.removed.append(cards[0])
@@ -147,101 +239,7 @@ class StrategicPlayer(Player):
             self.board.remove(cards[2])
             
             return Set.Set(cards[0], cards[1], cards[2])
-        return False
-    
-    def getLeastCard(self, sets):
-        minSet = -1
-        minExistingSets = -1
-        numSetsForCard = 0
-        setNum = 0
-        
-        for eachSet in sets:
-            cards = eachSet.returnSet()
-            for card in cards:
-                for secondCard in (self.board + self.deck):
-                    if secondCard != card:
-                        thirdCard = Set.predictThird(card, secondCard)
-                        if thirdCard in (self.board + self.deck):
-                            numSetsForCard += 1
-                if minExistingSets == -1 or numSetsForCard < minExistingSets:
-#                     print (numSetsForCard)
-                    minExistingSets = numSetsForCard
-                    minSet = setNum
-            numSetsForCard = 0
-            setNum += 1
-        return sets[minSet]
-    
-    
-    #DO THIS
-    def getMostCard(self, sets):
-        minSet = -1
-        maxExistingSets = -1
-        numSetsForCard = 0
-        setNum = 0
-        
-        for eachSet in sets:
-            cards = eachSet.returnSet()
-            for card in cards:
-                for secondCard in (self.board + self.deck):
-                    if secondCard != card:
-                        thirdCard = Set.predictThird(card, secondCard)
-                        if thirdCard in (self.board + self.deck):
-#                             print( card, secondCard, thirdCard)
-                            numSetsForCard += 1
-                if maxExistingSets == -1 or numSetsForCard > maxExistingSets:
-                    
-                    maxExistingSets = numSetsForCard
-                    minSet = setNum
-            numSetsForCard = 0
-            setNum += 1
-        return sets[minSet]
-    
-    #DO THIS
-    def getMostSet(self, sets):
-        maxSet = -1
-        maxExistingSets = -1
-        numSetsForSet = 0
-        setNum = 0
-        
-        for eachSet in sets:
-            cards = eachSet.returnSet()
-            for card in cards:
-                for secondCard in (self.board + self.deck):
-                    if secondCard != card:
-                        thirdCard = Set.predictThird(card, secondCard)
-                        if thirdCard in (self.board + self.deck):
-                            numSetsForSet += 1
-            if maxExistingSets == -1 or numSetsForSet > maxExistingSets:
-                    
-                maxExistingSets = numSetsForSet
-                maxSet = setNum
-            numSetsForSet = 0
-            setNum += 1
-        return sets[maxSet]
-    
-    
-    def getLeastSet(self, sets):
-        minSet = -1
-        minExistingSets = -1
-        numSetsForSet = 0
-        setNum = 0
-        
-        for eachSet in sets:
-            cards = eachSet.returnSet()
-            for card in cards:
-                for secondCard in (self.board + self.deck):
-                    if secondCard != card:
-                        thirdCard = Set.predictThird(card, secondCard)
-                        if thirdCard in (self.board + self.deck):
-                            numSetsForSet += 1
-            if minExistingSets == -1 or numSetsForSet < minExistingSets:
-                minExistingSets = numSetsForSet
-                minSet = setNum
-            numSetsForSet = 0
-            setNum += 1
-        return sets[minSet]
-                        
-                
+        return False      
     
 if __name__ == '__main__':
         
