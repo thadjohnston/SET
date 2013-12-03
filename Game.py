@@ -85,23 +85,24 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
         averageMostSet += len(sets)
         
     #Statistics
-    print "Statistics: Remove(" + str(remove) + ") Reshuffle(" + str(allowReshuffle) + ")"
-    print "Completed Greedy: \t" + str(completeGreedy/howmany) + "%"
-    print "Average Greedy: \t" + str(averageGreedy/howmany)
-    print "Completed Least Card: \t" + str(completeLeastCard/howmany) + "%"
-    print "Average Least Card: \t" + str(averageLeastCard/howmany)
-    print "Completed Most Card: \t" + str(completeMostCard/howmany) + "%"
-    print "Average Most Card: \t" + str(averageMostCard/howmany)
-    print "Completed Least Set: \t" + str(completeLeastSet/howmany) + "%"
-    print "Average Least Set: \t" + str(averageLeastSet/howmany)
-    print "Completed Most Set: \t" + str(completeMostSet/howmany) + "%"
-    print "Average Most Set: \t" + str(averageMostSet/howmany)
-    print "------------------------------------------"
+    print("Statistics: Remove(" + str(remove) + ") Reshuffle(" + str(allowReshuffle) + ")")
+    print("Completed Greedy: \t" + str(completeGreedy/howmany) + "%")
+    print("Average Greedy: \t" + str(averageGreedy/howmany))
+    print("Completed Least Card: \t" + str(completeLeastCard/howmany) + "%")
+    print("Average Least Card: \t" + str(averageLeastCard/howmany))
+    print("Completed Most Card: \t" + str(completeMostCard/howmany) + "%")
+    print("Average Most Card: \t" + str(averageMostCard/howmany))
+    print("Completed Least Set: \t" + str(completeLeastSet/howmany) + "%")
+    print("Average Least Set: \t" + str(averageLeastSet/howmany))
+    print("Completed Most Set: \t" + str(completeMostSet/howmany) + "%")
+    print("Average Most Set: \t" + str(averageMostSet/howmany))
+    print("------------------------------------------")
     
 if __name__ == '__main__':
-    goNuts(10)
-    goNuts(10, 6)
-    goNuts(10, 12)
-    goNuts(10, 0, True)
-    goNuts(10, 6, True)
-    goNuts(10, 12, True)
+    numGames = 50
+    goNuts(numGames)
+    goNuts(numGames, 6)
+    goNuts(numGames, 12)
+    goNuts(numGames, 0, True)
+    goNuts(numGames, 6, True)
+    goNuts(numGames, 12, True)
