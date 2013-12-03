@@ -61,6 +61,9 @@ class DeckHandler(object):
         del self.shuffled[0:2]
         return newCards
     
+    
+        
+    
 def printFormattedDeck(deck):
     s = ""
     numCards = len(deck)
@@ -96,6 +99,18 @@ class Card(object):
     
     def getShape(self):
         return self.shape
+    
+    def numDifferences(self, other):
+        numDiff = 0
+        if self.getNumber() != other.getNumber():
+            numDiff += 1
+        if self.getColor() != other.getColor():
+            numDiff += 1
+        if self.getPattern() != other.getPattern():
+            numDiff += 1
+        if self.getShape() != other.getShape():
+            numDiff += 1
+        return numDiff
     
     def __eq__(self, other):
         if isinstance(other, self.__class__):

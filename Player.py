@@ -209,6 +209,36 @@ def getLeastSet(board, deck, sets):
         numSetsForSet = 0
         setNum += 1
     return sets[minSet]
+
+def bestCombinatoric(board, deck, sets):
+    bestSet = -1
+    setNum = 0
+    bestNumDiff = 0
+    bestCombinatoric = {1:2, 2:3, 3:2, 4:1}
+    
+    for eachSet in sets:
+        cards = eachSet.returnSet()
+        numDiffScore = bestCombinatoric[cards[0].numDifferences(cards[1])]
+        if bestSet == -1 or numDiffScore > bestNumDiff:
+            bestNumDiff = numDiffScore
+            bestSet = setNum
+        setNum += 1
+    return sets[bestSet]
+
+def worstCombinatoric(board, deck, sets):
+    bestSet = -1
+    setNum = 0
+    bestNumDiff = 0
+    bestCombinatoric = {1:2, 2:1, 3:2, 4:3}
+    
+    for eachSet in sets:
+        cards = eachSet.returnSet()
+        numDiffScore = bestCombinatoric[cards[0].numDifferences(cards[1])]
+        if bestSet == -1 or numDiffScore > bestNumDiff:
+            bestNumDiff = numDiffScore
+            bestSet = setNum
+        setNum += 1
+    return sets[bestSet]
         
 class StrategicPlayer(Player):
     
@@ -244,9 +274,10 @@ if __name__ == '__main__':
         
         #p = Player(deck.shuffle(), False)
         completeGames = 0
-        for i in range(10000):
+        for i in range(100):
             deck = DeckHandler.DeckHandler()
-            lc = StrategicPlayer(deck.shuffle(), False)
+            deck = deck.shuffle()
+            lc = StrategicPlayer(deck, False)
             setsFound = lc.playGame()
             if len(setsFound) == 27:
                 completeGames += 1

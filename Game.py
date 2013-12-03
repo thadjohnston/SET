@@ -13,12 +13,15 @@ class Game(object):
         
         
     def start(self):
-        #for player in self.players:
-        P = Player.StrategicPlayer(self.deck)
-        sets = P.playGame()
-        completeGames = 0
-        if len(sets) == 27:
-            completeGames += 1
+        for i in range(1000):
+            D = DeckHandler.DeckHandler()
+            D.shuffle()
+            self.deck = D.getDeck()
+            P = Player.StrategicPlayer(self.deck, Player.getLeastSet, False)
+            sets = P.playGame()
+            completeGames = 0
+            if len(sets) == 27:
+                completeGames += 1
         print('Number of complete games: ' + str(completeGames))
 
 
@@ -96,6 +99,7 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
     print "Average Most Set: \t" + str(averageMostSet/float(howmany))
     print "------------------------------------------"
     
+ 
 if __name__ == '__main__':
     numGames = 1000
     goNuts(numGames)
