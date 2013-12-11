@@ -99,10 +99,10 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
     print("------------------------------------------")
     
 if __name__ == '__main__':
-    numGames = 50
-    goNuts(numGames)
-    goNuts(numGames, 6)
-    goNuts(numGames, 12)
-    goNuts(numGames, 0, True)
-    goNuts(numGames, 6, True)
+    numGames = 10
+#     goNuts(numGames)
+#     goNuts(numGames, 6)
+#     goNuts(numGames, 12)
+#     goNuts(numGames, 0, True)
+#     goNuts(numGames, 6, True)
     goNuts(numGames, 12, True)
