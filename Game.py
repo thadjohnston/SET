@@ -42,6 +42,12 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
     completeMostSet = 0
     averageMostSet = 0
     
+    completeBComb = 0
+    averageBComb = 0
+    
+    completeWComb = 0
+    averageWComb = 0
+    
     completePossible = 27 - (remove/3)
     
     for i in range (howmany):
@@ -84,25 +90,54 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
             completeMostSet += 1
         averageMostSet += len(sets)
         
+        #Play Strategy: bestCombinatoric
+        S5 = Player.StrategicPlayer(copy.deepcopy(deck.getDeck()), Player.bestCombinatoric, allowReshuffle)
+        sets = S5.playGame()
+        if len(sets) == completePossible:
+            completeBComb += 1
+        averageBComb += len(sets)
+        
+        #Play Strategy: worstCombinatoric
+        S6 = Player.StrategicPlayer(copy.deepcopy(deck.getDeck()), Player.worstCombinatoric, allowReshuffle)
+        sets = S6.playGame()
+        if len(sets) == completePossible:
+            completeWComb += 1
+        averageWComb += len(sets)
+        
     #Statistics
-    print("Statistics: Remove(" + str(remove) + ") Reshuffle(" + str(allowReshuffle) + ")")
-    print("Completed Greedy: \t" + str(completeGreedy/howmany) + "%")
-    print("Average Greedy: \t" + str(averageGreedy/howmany))
-    print("Completed Least Card: \t" + str(completeLeastCard/howmany) + "%")
-    print("Average Least Card: \t" + str(averageLeastCard/howmany))
-    print("Completed Most Card: \t" + str(completeMostCard/howmany) + "%")
-    print("Average Most Card: \t" + str(averageMostCard/howmany))
-    print("Completed Least Set: \t" + str(completeLeastSet/howmany) + "%")
-    print("Average Least Set: \t" + str(averageLeastSet/howmany))
-    print("Completed Most Set: \t" + str(completeMostSet/howmany) + "%")
-    print("Average Most Set: \t" + str(averageMostSet/howmany))
-    print("------------------------------------------")
+    num = howmany/100.0
+    print "Statistics: Remove(" + str(remove) + ") Reshuffle(" + str(allowReshuffle) + ")"
+    print "Completed Greedy: \t" + str(completeGreedy/num) + "%"
+    print "Average Greedy: \t" + str(averageGreedy/float(howmany))
+    print "Completed Least Card: \t" + str(completeLeastCard/num) + "%"
+    print "Average Least Card: \t" + str(averageLeastCard/float(howmany))
+    print "Completed Most Card: \t" + str(completeMostCard/num)+ "%"
+    print "Average Most Card: \t" + str(averageMostCard/float(howmany))
+    print "Completed Least Set: \t" + str(completeLeastSet/num) + "%"
+    print "Average Least Set: \t" + str(averageLeastSet/float(howmany))
+    print "Completed Most Set: \t" + str(completeMostSet/num) + "%"
+    print "Average Most Set: \t" + str(averageMostSet/float(howmany))
+    print "Completed Best Comb: \t" + str(completeBComb/num) + "%"
+    print "Average Best Comb: \t" + str(averageBComb/float(howmany))
+    print "Completed Worst Comb: \t" + str(completeWComb/num) + "%"
+    print "Average Worst Comb: \t" + str(averageWComb/float(howmany))
+    print "------------------------------------------"
     
+ 
 if __name__ == '__main__':
+<<<<<<< HEAD
     numGames = 10
 #     goNuts(numGames)
 #     goNuts(numGames, 6)
 #     goNuts(numGames, 12)
 #     goNuts(numGames, 0, True)
 #     goNuts(numGames, 6, True)
+=======
+    numGames = 1000
+    goNuts(numGames)
+    goNuts(numGames, 6)
+    goNuts(numGames, 12)
+    goNuts(numGames, 0, True)
+    goNuts(numGames, 6, True)
+>>>>>>> 6639a3117421d937e6bf739e1cfaf06fd3454d04
     goNuts(numGames, 12, True)
