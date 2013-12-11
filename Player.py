@@ -214,7 +214,7 @@ def bestCombinatoric(board, deck, sets):
     bestSet = -1
     setNum = 0
     bestNumDiff = 0
-    bestCombinatoric = {1:2, 2:3, 3:2, 4:1}
+    bestCombinatoric = {1:1, 2:3, 3:4, 4:2}
     
     for eachSet in sets:
         cards = eachSet.returnSet()
@@ -229,7 +229,7 @@ def worstCombinatoric(board, deck, sets):
     bestSet = -1
     setNum = 0
     bestNumDiff = 0
-    bestCombinatoric = {1:2, 2:1, 3:2, 4:3}
+    bestCombinatoric = {1:4, 2:2, 3:1, 4:3}
     
     for eachSet in sets:
         cards = eachSet.returnSet()

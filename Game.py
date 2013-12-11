@@ -125,19 +125,15 @@ def goNuts(howmany, remove=0, allowReshuffle=False):
     
  
 if __name__ == '__main__':
-<<<<<<< HEAD
-    numGames = 10
 #     goNuts(numGames)
 #     goNuts(numGames, 6)
 #     goNuts(numGames, 12)
 #     goNuts(numGames, 0, True)
 #     goNuts(numGames, 6, True)
-=======
     numGames = 1000
     goNuts(numGames)
     goNuts(numGames, 6)
     goNuts(numGames, 12)
-    goNuts(numGames, 0, True)
-    goNuts(numGames, 6, True)
->>>>>>> 6639a3117421d937e6bf739e1cfaf06fd3454d04
-    goNuts(numGames, 12, True)
+#     goNuts(numGames, 0, True)
+#     goNuts(numGames, 6, True)
+#     goNuts(numGames, 12, True)
